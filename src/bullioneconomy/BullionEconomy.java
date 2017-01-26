@@ -15,7 +15,14 @@ public class BullionEconomy {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        String[] path = {"./1.csv","2.csv"};
+        String l="";
+        String p=",";
+        csvparse cp = new csvparse();
+        for (String path1 : path) {
+            cp.csvparse(path1, l, p);
+        }
+        
     }
     
 }
