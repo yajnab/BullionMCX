@@ -24,7 +24,10 @@ public class csvparse {
             while ((line = br.readLine()) != null) {
 
                 // use comma as separator
-                String[] value = line.split(cvsSplitBy); //Value Array                
+                String[] value = line.split(cvsSplitBy); //Value Array
+                dbexporter db = new dbexporter();
+                db.sqlentry(value);
+                
 
             }
 
