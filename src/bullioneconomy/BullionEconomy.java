@@ -5,6 +5,14 @@
  */
 package bullioneconomy;
 
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 /**
  *
  * @author yajnavalkya
@@ -14,7 +22,12 @@ public class BullionEconomy {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+                
+        predictor pred = new predictor();
+        pred.ARIMApredict();
+    }
+    public void csv2db(){
         String[] path = {"./1.csv","2.csv"};
         String l="";
         String p=",";
@@ -25,4 +38,6 @@ public class BullionEconomy {
         
     }
     
-}
+    }
+    
+
