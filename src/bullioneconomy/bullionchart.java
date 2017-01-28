@@ -11,7 +11,16 @@ package bullioneconomy;
  */
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 import javax.swing.JPanel;
 
@@ -45,7 +54,7 @@ public class bullionchart extends ApplicationFrame {
      *
      * @param title  the frame title.
      */
-    public bullionchart(String title) {
+    public bullionchart(String title) throws ClassNotFoundException, SQLException, ParseException {
         super(title);
         XYDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
@@ -103,29 +112,47 @@ public class bullionchart extends ApplicationFrame {
      *
      * @return The dataset.
      */
-    private static XYDataset createDataset() {
+    private static XYDataset createDataset() throws ClassNotFoundException, SQLException, ParseException {
 
-        TimeSeries s1 = new TimeSeries("Actual", Month.class);
-        s1.add(new Month(2, 2001), 181.8);
-        s1.add(new Month(3, 2001), 167.3);
-        s1.add(new Month(4, 2001), 153.8);
-        s1.add(new Month(5, 2001), 167.6);
-        s1.add(new Month(6, 2001), 158.8);
-        s1.add(new Month(7, 2001), 148.3);
-        s1.add(new Month(8, 2001), 153.9);
-        s1.add(new Month(9, 2001), 142.7);
-        s1.add(new Month(10, 2001), 123.2);
-        s1.add(new Month(11, 2001), 131.8);
-        s1.add(new Month(12, 2001), 139.6);
-        s1.add(new Month(1, 2002), 142.9);
-        s1.add(new Month(2, 2002), 138.7);
-        s1.add(new Month(3, 2002), 137.3);
-        s1.add(new Month(4, 2002), 143.9);
-        s1.add(new Month(5, 2002), 139.8);
-        s1.add(new Month(6, 2002), 137.0);
-        s1.add(new Month(7, 2002), 132.8);
+        
+        
+        TimeSeries s1 = new TimeSeries("Actual", Day.class);
+        Class.forName("com.mysql.jdbc.Driver");
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BULLION","yajnab","petrol123")) {
+            Statement stmt = con.createStatement();
+            ResultSet result = stmt.executeQuery("SELECT * FROM gold");
+            while(result.next())
+            {
+                
+                String datefeed = result.getString(1);
+                Double value = result.getDouble(2);
+                int[] m=  new  int[3];
+                //bullionchart bcc = new bullionchart();
+                //m = bcc.dateget(datefeed);
+                m = dateget(datefeed);
+                s1.add(new Day(m[0],m[1],m[2]), value);
+            }   result.close();
+            /*s1.add(new Month(2, 2001), 181.8);
+            s1.add(new Month(3, 2001), 167.3);
+            s1.add(new Month(4, 2001), 153.8);
+            s1.add(new Month(5, 2001), 167.6);
+            s1.add(new Month(6, 2001), 158.8);
+            s1.add(new Month(7, 2001), 148.3);
+            s1.add(new Month(8, 2001), 153.9);
+            s1.add(new Month(9, 2001), 142.7);
+            s1.add(new Month(10, 2001), 123.2);
+            s1.add(new Month(11, 2001), 131.8);
+            s1.add(new Month(12, 2001), 139.6);
+            s1.add(new Month(1, 2002), 142.9);
+            s1.add(new Month(2, 2002), 138.7);
+            s1.add(new Month(3, 2002), 137.3);
+            s1.add(new Month(4, 2002), 143.9);
+            s1.add(new Month(5, 2002), 139.8);
+            s1.add(new Month(6, 2002), 137.0);
+            s1.add(new Month(7, 2002), 132.8);*/
+        }
 
-        TimeSeries s2 = new TimeSeries("Forecasted", Month.class);
+        /*TimeSeries s2 = new TimeSeries("Forecasted", Month.class);
         s2.add(new Month(2, 2001), 129.6);
         s2.add(new Month(3, 2001), 123.2);
         s2.add(new Month(4, 2001), 117.2);
@@ -143,11 +170,11 @@ public class bullionchart extends ApplicationFrame {
         s2.add(new Month(4, 2002), 113.2);
         s2.add(new Month(5, 2002), 111.6);
         s2.add(new Month(6, 2002), 108.8);
-        s2.add(new Month(7, 2002), 101.6);
+        s2.add(new Month(7, 2002), 101.6);*/
 
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
-        dataset.addSeries(s2);
+        //dataset.addSeries(s2);
 
         dataset.setDomainIsPointsInTime(true);
 
@@ -160,17 +187,29 @@ public class bullionchart extends ApplicationFrame {
      * 
      * @return A panel.
      */
-    public static JPanel createDemoPanel() {
+    public static JPanel createDemoPanel() throws ClassNotFoundException, SQLException, ParseException {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
-    /**
-     * Starting point for the demonstration application.
-     *
-     * @param args  ignored.
-     */
-    
 
+    
+    public static int[] dateget(String i) throws ParseException{
+        String inputDateString = i.trim().replaceAll(" ", "-");
+        System.out.println(inputDateString);
+        DateFormat dfTo = new SimpleDateFormat("dd-MMM-yyyy");
+        Date inputDate = dfTo.parse(inputDateString);
+        DateFormat dayf = new SimpleDateFormat("dd");
+        DateFormat monthf = new SimpleDateFormat("MM");
+        DateFormat yearf = new SimpleDateFormat("yyyy");
+        String oDay = dayf.format(inputDate);
+        String oMonth = monthf.format(inputDate);
+        String oYear = yearf.format(inputDate);
+        int[] k = new int[3];
+        k[0]=Integer.parseInt(oDay.toString());
+        k[1]=Integer.parseInt(oMonth.toString());
+        k[2]=Integer.parseInt(oYear.toString());
+        
+        return k;
+    }
 }
 
