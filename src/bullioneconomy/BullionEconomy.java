@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import org.jfree.ui.RefineryUtilities;
 
@@ -26,7 +27,7 @@ public class BullionEconomy {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, ParseException {
                 
         System.out.println("Import to DB(1) or Predict(2)");
         Integer n = Integer.parseInt((new BufferedReader(new InputStreamReader(System.in))).readLine());
@@ -46,6 +47,7 @@ public class BullionEconomy {
                 chart.pack();
                 RefineryUtilities.centerFrameOnScreen(chart);
                 chart.setVisible(true);
+                break;
             }
                 
             default:System.out.println("Again");
