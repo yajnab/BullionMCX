@@ -41,10 +41,10 @@ public class predictor {
         //String[] str = (String[])list1.toArray(new String[0]);
         result.close();
         ArrayList<Double> ar = new ArrayList<>();
-        for(int i=0;i<115;i++){
+        for(int i=0;i<450;i++){
             ar.add(arraylist.get(i));//Basic Feeder
         }
-        for(int i=115;i<arraylist.size()-1;i++){//Prediction starts from the 46th value and ends at the last
+        for(int i=450;i<arraylist.size()-1;i++){//Prediction starts from the 46th value and ends at the last
             double[] dataArray=new double[i];
             for(int k=0;k<ar.size()-1;k++)                
                 dataArray[k]=ar.get(k);
