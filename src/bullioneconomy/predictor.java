@@ -41,16 +41,18 @@ public class predictor {
         //String[] str = (String[])list1.toArray(new String[0]);
         result.close();
         ArrayList<Double> ar = new ArrayList<>();
-        for(int i=0;i<45;i++){
+        for(int i=0;i<115;i++){
             ar.add(arraylist.get(i));//Basic Feeder
         }
-        for(int i=45;i<arraylist.size()-1;i++){//Prediction starts from the 46th value and ends at the last
+        for(int i=115;i<arraylist.size()-1;i++){//Prediction starts from the 46th value and ends at the last
             double[] dataArray=new double[i];
             for(int k=0;k<ar.size()-1;k++)                
                 dataArray[k]=ar.get(k);
             ARIMA arima=new ARIMA(dataArray);
             int []model=arima.getARIMAmodel();
-            double pv=arima.aftDeal(arima.predictValue(model[0],model[1]));
+            int p = model[0], q= model[1]; 
+            //System.out.println(p+"\t"+q); //Debug Code for Model Printing
+            double pv=arima.aftDeal(arima.predictValue(p,q));
             System.out.println("Predict value="+pv);
             ar.add(pv);         
             
