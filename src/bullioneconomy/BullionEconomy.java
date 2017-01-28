@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import org.jfree.ui.RefineryUtilities;
 
 /**
  *
@@ -40,6 +41,13 @@ public class BullionEconomy {
                 pred.ARIMApredict();
                 break;                
             }
+            case 3:{                
+                bullionchart chart = new bullionchart("Graph");
+                chart.pack();
+                RefineryUtilities.centerFrameOnScreen(chart);
+                chart.setVisible(true);
+            }
+                
             default:System.out.println("Again");
         }
         
