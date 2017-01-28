@@ -40,7 +40,7 @@ public class predictor {
         //System.out.println("Predict error="+((arima.aftDeal(arima.predictValue(model[0],model[1]))-arraylist.get(arraylist.size()-1))/arraylist.get(arraylist.size()-1))*100+"%");
         //String[] str = (String[])list1.toArray(new String[0]);
         result.close();
-        for(int i=40;i<=arraylist.size()-1;i++){
+        for(int i=45;i<=arraylist.size()-1;i++){
             double[] dataArray=new double[i];
             for(int k=0;k<i;k++)                
                 dataArray[k]=arraylist.get(k);
