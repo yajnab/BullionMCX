@@ -4,6 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/BullionEconomy.java</file>
+            <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/predictor.java</file>
+            <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/dbexporter.java</file>
+            <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/ARIMA.java</file>
         </group>
     </open-files>
 </project-private>
