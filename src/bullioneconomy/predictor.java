@@ -40,11 +40,12 @@ public class predictor {
         //System.out.println("Predict error="+((arima.aftDeal(arima.predictValue(model[0],model[1]))-arraylist.get(arraylist.size()-1))/arraylist.get(arraylist.size()-1))*100+"%");
         //String[] str = (String[])list1.toArray(new String[0]);
         result.close();
+        con.close();
         ArrayList<Double> ar = new ArrayList<>();
-        for(int i=0;i<450;i++){
+        for(int i=0;i<270;i++){
             ar.add(arraylist.get(i));//Basic Feeder
         }
-        for(int i=450;i<arraylist.size()-1;i++){//Prediction starts from the 46th value and ends at the last
+        for(int i=270;i<arraylist.size()-1;i++){//Prediction starts from the 46th value and ends at the last
             double[] dataArray=new double[i];
             for(int k=0;k<ar.size()-1;k++)                
                 dataArray[k]=ar.get(k);
