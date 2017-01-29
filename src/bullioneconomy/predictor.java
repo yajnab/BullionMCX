@@ -49,10 +49,10 @@ public class predictor {
         result.close();
         con.close();
         ArrayList<Double> ar = new ArrayList<>();
-        for(int i=0;i<270;i++){
+        for(int i=0;i<274;i++){
             ar.add(arraylist.get(i));//Basic Feeder
         }
-        for(int i=270;i<arraylist.size();i++){//Prediction starts here
+        for(int i=274;i<arraylist.size();i++){//Prediction starts here
             double[] dataArray=new double[i];
             for(int k=0;k<ar.size()-1;k++)                
                 dataArray[k]=ar.get(k);
