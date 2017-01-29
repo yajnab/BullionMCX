@@ -17,7 +17,14 @@ import java.util.ArrayList;
  * @author yajnavalkya
  */
 public class predictor {
-    public void ARIMApredict() throws SQLException, ClassNotFoundException{
+
+    /**
+     *
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public ArrayList<Double> ARIMApredict() throws SQLException, ClassNotFoundException{
         ArrayList<Double> arraylist; // TODO Auto-generated catch block
         arraylist = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
@@ -45,7 +52,7 @@ public class predictor {
         for(int i=0;i<270;i++){
             ar.add(arraylist.get(i));//Basic Feeder
         }
-        for(int i=270;i<arraylist.size()-1;i++){//Prediction starts from the 46th value and ends at the last
+        for(int i=270;i<arraylist.size();i++){//Prediction starts here
             double[] dataArray=new double[i];
             for(int k=0;k<ar.size()-1;k++)                
                 dataArray[k]=ar.get(k);
@@ -57,7 +64,8 @@ public class predictor {
             System.out.println("Predict value="+pv);
             ar.add(pv);         
             
-        }       
+        }
+        return ar;
         }
 	
 }
