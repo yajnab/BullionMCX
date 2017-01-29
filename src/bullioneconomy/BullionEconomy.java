@@ -37,12 +37,7 @@ public class BullionEconomy {
                 be.csv2db();
                 break;
             }
-            case 2:{
-                predictor pred = new predictor();
-                pred.ARIMApredict();
-                break;                
-            }
-            case 3:{                
+            case 2:{               
                 bullionchart chart = new bullionchart("Graph");
                 chart.pack();
                 RefineryUtilities.centerFrameOnScreen(chart);
