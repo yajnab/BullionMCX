@@ -200,7 +200,7 @@ public class bullionchart extends ApplicationFrame {
     
     public static int[] dateget(String i) throws ParseException{
         String inputDateString = i.trim().replaceAll(" ", "-");
-        System.out.println(inputDateString);
+        //System.out.println(inputDateString);
         DateFormat dfTo = new SimpleDateFormat("dd-MMM-yyyy");
         Date inputDate = dfTo.parse(inputDateString);
         DateFormat dayf = new SimpleDateFormat("dd");

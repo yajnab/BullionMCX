@@ -61,7 +61,7 @@ public class predictor {
             int p = model[0], q= model[1]; 
             //System.out.println(p+"\t"+q); //Debug Code for Model Printing
             double pv=arima.aftDeal(arima.predictValue(p,q));
-            System.out.println("Predict value="+pv);
+            //System.out.println("Predict value="+pv);
             ar.add(pv);         
             
         }
