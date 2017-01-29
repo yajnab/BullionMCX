@@ -55,7 +55,7 @@ public class BullionEconomy {
         
     }
     public void csv2db(){
-        String[] path = {"./1.csv","./2.csv","./3.csv"};
+        String[] path = {"./1.csv","./2.csv","./3.csv","./4.csv"};
         String l="";
         String p=",";
         csvparse cp = new csvparse();

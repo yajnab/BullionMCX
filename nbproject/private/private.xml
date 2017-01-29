@@ -5,8 +5,7 @@
         <group>
             <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/BullionEconomy.java</file>
             <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/predictor.java</file>
-            <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/dbexporter.java</file>
-            <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/ARIMA.java</file>
+            <file>file:/home/yajnavalkya/NetBeansProjects/BullionEconomy/src/bullioneconomy/bullionchart.java</file>
         </group>
     </open-files>
 </project-private>
