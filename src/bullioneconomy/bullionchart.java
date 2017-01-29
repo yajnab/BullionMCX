@@ -19,6 +19,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -32,13 +33,11 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.Day;
-import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * An example of a time series chart.  For the most part, default settings are 
@@ -74,9 +73,9 @@ public class bullionchart extends ApplicationFrame {
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Legal & General Unit Trust Prices",  // title
+            "Gold Price in Recent Years",  // title
             "Date",             // x-axis label
-            "Price Per Unit",   // y-axis label
+            "Price Per 10g",   // y-axis label
             dataset,            // data
             true,               // create legend?
             true,               // generate tooltips?
@@ -117,10 +116,14 @@ public class bullionchart extends ApplicationFrame {
         
         
         TimeSeries s1 = new TimeSeries("Actual", Day.class);
+        TimeSeries s2 = new TimeSeries("Forecasted", Day.class);
         Class.forName("com.mysql.jdbc.Driver");
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BULLION","yajnab","petrol123")) {
             Statement stmt = con.createStatement();
             ResultSet result = stmt.executeQuery("SELECT * FROM gold");
+            ArrayList<Double> arm = new ArrayList<>();
+            predictor pcd = new predictor();
+            arm= pcd.ARIMApredict();int i=0;
             while(result.next())
             {
                 
@@ -131,6 +134,8 @@ public class bullionchart extends ApplicationFrame {
                 //m = bcc.dateget(datefeed);
                 m = dateget(datefeed);
                 s1.add(new Day(m[0],m[1],m[2]), value);
+                s2.add(new Day(m[0],m[1],m[2]), arm.get(i));
+                i++;
             }   result.close();
             /*s1.add(new Month(2, 2001), 181.8);
             s1.add(new Month(3, 2001), 167.3);
@@ -174,7 +179,7 @@ public class bullionchart extends ApplicationFrame {
 
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
-        //dataset.addSeries(s2);
+        dataset.addSeries(s2);
 
         dataset.setDomainIsPointsInTime(true);
 
