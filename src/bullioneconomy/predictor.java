@@ -48,24 +48,30 @@ public class predictor {
         //String[] str = (String[])list1.toArray(new String[0]);
         result.close();
         con.close();
+        ArrayList<Double> ARFinal = new ArrayList<>();
         ArrayList<Double> ar = new ArrayList<>();
-        for(int i=0;i<274;i++){
+        for(int i=0;i<40;i++){
             ar.add(arraylist.get(i));//Basic Feeder
+            ARFinal.add(arraylist.get(i));
         }
-        for(int i=274;i<arraylist.size();i++){//Prediction starts here
+        for(int i=40;i<arraylist.size();i++){//Prediction starts here
             double[] dataArray=new double[i];
-            for(int k=0;k<ar.size()-1;k++)                
-                dataArray[k]=ar.get(k);
+            if(i>280){
+                for(int k=0;k<ARFinal.size()-1;k++)
+                    dataArray[k]=ARFinal.get(k);}
+            else{
+                for(int k=0;k<ARFinal.size()-1;k++)
+                    dataArray[k]=arraylist.get(k);}
             ARIMA arima=new ARIMA(dataArray);
             int []model=arima.getARIMAmodel();
             int p = model[0], q= model[1]; 
             //System.out.println(p+"\t"+q); //Debug Code for Model Printing
             double pv=arima.aftDeal(arima.predictValue(p,q));
             //System.out.println("Predict value="+pv);
-            ar.add(pv);         
+            ARFinal.add(pv);
             
         }
-        return ar;
+        return ARFinal;
         }
 	
 }
